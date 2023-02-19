@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
+    "importsNotUsedAsValues": "error",
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
