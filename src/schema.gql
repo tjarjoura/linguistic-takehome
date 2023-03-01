@@ -17,7 +17,7 @@ type Document {
 }
 
 type Mutation {
-  addDocument(body: String!, title: String!): Document!
+  addDocument(body: String!, title: String!, userId: Float!): Document!
 }
 
 type Query {

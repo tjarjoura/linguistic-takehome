@@ -13,9 +13,7 @@ export class DocumentResolver {
   }
   
   @Mutation(() => Document)
-  addDocument(@Args('title') title: string, @Args('body') body: string) {
-    // Since we don't have authentication implemented, we hardcode which "user" is uploading this document.
-    const userId = 1;
+  addDocument(@Args('userId') userId: number, @Args('title') title: string, @Args('body') body: string) {
     return this.documentService.addDocument(userId, title, body);
   }
 }
