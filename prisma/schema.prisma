@@ -29,4 +29,5 @@ model Document {
   updatedAt DateTime @updatedAt
 
   @@map("documents")
+  @@index([userId])
 }

@@ -26,6 +26,7 @@ type Query {
 }
 
 type User {
+  documents: [Document!]!
   email: String!
   id: Int!
   name: String!
