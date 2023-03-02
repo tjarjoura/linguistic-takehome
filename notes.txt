@@ -4,7 +4,7 @@ Some general thoughts as I worked on this:
 
 2. There may be some problems down the line if users are loading all of the text of all of their documents at once. If the amount of data becomes too large, we could consider returning a list of document IDs or maybe a shortened version of the text until they explicitly request a specific document. Not an issue at this scale but something to keep in mind for the future.
 
-3. I included an index for userId on the "docuemnts" table. This will it faster to lookup all of the documents for a given user, at the expense of making it more expensive to insert new documents. I assumed that users would spend more time consuming their existing documents rather than uploading new ones. In any case, this kind of optimization is not necessary at the scale of 10 users, but could be as usage grows. 
+3. I included an index for userId on the "documents" table. This will make it faster to lookup all of the documents for a given user, at the expense of making it more expensive to insert new documents. I assumed that users would spend more time consuming their existing documents rather than uploading new ones. In any case, this kind of optimization is not necessary at the scale of 10 users, but could be as usage grows. 
 
 4. I noticed that the tests were broken, which seemed to be because of different import paths configured for jest vs tsc (src/ vs ./). After I updated that the tests started complaining when I used absolute import paths, so I made everything relative. I'm not sure but I think this may be what you're supposed to do? It's possible I messed things up there.
 
