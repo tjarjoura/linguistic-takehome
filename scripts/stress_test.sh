@@ -1,7 +1,5 @@
 #!/bin/bash
 
-DOCUMENT_SVC_ENDPOINT=localhost:3000
-FILE_SIZE=1000000000 # 1GB
 DATA_FILE=data.gql
 
 # Test storing huge documents in the DB
