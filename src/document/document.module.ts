@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { PrismaModule } from 'src/prisma';
+import { PrismaModule } from '../prisma';
 
 import { DocumentResolver } from './document.resolver';
 import { DocumentService } from './document.service';
