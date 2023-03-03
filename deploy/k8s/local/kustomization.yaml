@@ -1,0 +1,18 @@
+bases:
+- ../base
+- ../local-postgres
+
+images:
+- name: document-svc
+  newName: registry.local:5000/document-svc
+  newTag: latest
+
+replicas:
+- name: document-svc
+  count: 1
+
+configMapGenerator:
+- name: database-url
+  literals:
+  # TODO Render this dynamically
+  - DATABASE_URL=postgresql://localdb:localdb@postgres:5432/document-svc?schema=public

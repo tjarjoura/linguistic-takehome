@@ -1,0 +1,41 @@
+# Based on https://medium.com/codex/setup-local-integration-environment-with-k3s-and-docker-compose-13fd815765cc
+
+version: '3'
+services:
+  server:
+    image: "rancher/k3s:${K3S_VERSION}"
+    command: 
+    - server
+    tmpfs:
+    - /run
+    - /var/run
+    privileged: true
+    environment:
+    - K3S_TOKEN=secret
+    - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+    - K3S_KUBECONFIG_MODE=666
+    volumes:
+    - ./registries.yaml:/etc/rancher/k3s/registries.yaml
+    - .:/output
+    ports:
+    - 6443:6443
+
+  agent:
+    image: "rancher/k3s:${K3S_VERSION}"
+    command:
+    - agent
+    tmpfs:
+    - /run
+    - /var/run
+    privileged: true
+    environment:
+    - K3S_URL=https://server:6443
+    - K3S_TOKEN=secret
+    volumes:
+    - ./registries.yaml:/etc/rancher/k3s/registries.yaml
+  
+  registry.local:
+    image: "registry:2"
+    ports:
+    - 5000:5000
+

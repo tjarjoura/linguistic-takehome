@@ -9,3 +9,15 @@ Some general thoughts as I worked on this:
 4. I noticed that the tests were broken, which seemed to be because of different import paths configured for jest vs tsc (src/ vs ./). After I updated that the tests started complaining when I used absolute import paths, so I made everything relative. I'm not sure but I think this may be what you're supposed to do? It's possible I messed things up there.
 
 5. I needed to read a few primers about NestJS and GraphQL before fully diving into this, since I have not worked with them before (in the past I have implemented REST APIs). Prisma was easier to pick up because I had used other ORMs before (Django). I would be curious what kind of performance problems we could run into down the line as we grow the complexity of the data types involved here (for example, if there are additional nested relations inside of Document, and so on, it could result in a lot of DB queries).
+
+6. For the database provider - I tried to see if we could make that dynamic but it looks like Prisma generates migration code to be provider specific, so we need to stick with postgres: https://github.com/prisma/prisma/issues/1487#issuecomment-1300932905
+
+7. I set up a "deploy/" subdirectory which is based on Kubernetes / Kustomize. The idea is that we could re-use the deployment manifests for both local and production deployments, by running a local K3s cluster. Probably overkill and needs tuning but is a nice proof of concept.
+
+8. I wasn't sure whether to combine the document and user modules together. They are both small and work together closely.  I decided it was best to keep them separate, because in my experience it usually makes sense to isolate user/authentication logic from the rest of the app.
+
+9. Still TODO:
+	* support updating an existing document
+	* write tests for document module
+	* support live loading from the local kubernetes environment
+	* support a way to generate postgres migration files - either we need to run another postgres server locally outside of kubernetes, expose the postgres DB service outside of kubernetes, or run a pod inside of the local cluster to generate them.
